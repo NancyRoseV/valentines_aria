@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>For Aria 💖</title>
+  <style>
+    :root{
+      --pink: #ff7fb7;
+      --pink-2:#ffd1e6;
+      --rose:#ff4fa0;
+      --text:#4a1030;
+      --card:#ffffffcc;
+      --shadow: 0 18px 40px rgba(74,16,48,.18);
+    }
+
+    *{ box-sizing: border-box; }
+    body{
+      margin:0;
+      min-height:100vh;
+      min-height:100svh;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      background:
+        radial-gradient(1200px 600px at 20% 20%, var(--pink-2), transparent 60%),
+        radial-gradient(1000px 600px at 80% 30%, #fff1f7, transparent 55%),
+        linear-gradient(180deg, #ffffff, #ffeaf3 55%, #ffffff);
+      position: relative;
+    }
+
+    .blob{
+      position:absolute;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle at 30% 30%, var(--pink), transparent 62%);
+      filter: blur(10px);
+      opacity:.55;
+      border-radius: 50%;
+      animation: drift 10s ease-in-out infinite alternate;
+      pointer-events:none;
+    }
+    .blob.b1{ top:-120px; left:-120px; }
+    .blob.b2{ bottom:-140px; right:-140px; animation-duration: 12s; }
+
+    @keyframes drift{
+      from{ transform: translate(0,0) scale(1); }
+      to{ transform: translate(35px, -25px) scale(1.08); }
+    }
+
+    .card{
+      width:min(560px, 92vw);
+      background: var(--card);
+      border: 1px solid rgba(255,127,183,.45);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 28px 22px;
+      backdrop-filter: blur(10px);
+      text-align:center;
+      position: relative;
+    }
+
+    h1{
+      margin: 18px 0 10px;
+      font-size: clamp(26px, 5vw, 38px);
+    }
+
+    .question{
+      font-size: clamp(18px, 3.5vw, 22px);
+      margin: 14px 0 18px;
+      font-weight: 650;
+    }
+
+    .btn-row{
+      display:flex;
+      justify-content:center;
+      gap: 12px;
+      flex-wrap:wrap;
+      margin-top: 8px;
+      position: relative;
+      min-height: 64px;
+    }
+
+    button{
+      border:0;
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 16px;
+      cursor:pointer;
+      transition: transform .12s ease;
+      user-select:none;
+    }
+
+    .yes{
+      background: linear-gradient(180deg, var(--pink), var(--rose));
+      color: #ffffff;
+      box-shadow: 0 12px 22px rgba(255,127,183,.35);
+    }
+
+    .no{
+      background: rgba(74,16,48,.06);
+      color: var(--text);
+      border: 1px solid rgba(74,16,48,.14);
+      position: relative;
+    }
+
+    .overlay{
+      position: fixed;
+      inset: 0;
+      display:none;
+      place-items:center;
+      background: rgba(74,16,48, .22);
+      backdrop-filter: blur(6px);
+      z-index: 50;
+      padding: 18px;
+    }
+    .overlay.show{ display:grid; }
+
+    .modal{
+      width:min(560px, 92vw);
+      background: rgba(255,255,255,.94);
+      border-radius: 24px;
+      padding: 24px 20px;
+      text-align:center;
+      border: 1px solid rgba(255,127,183,.25);
+    }
+
+    .heart{
+      position: fixed;
+      left: 50%;
+      top: 60%;
+      font-size: 18px;
+      pointer-events:none;
+      animation: floatUp 2.3s ease forwards;
+      z-index: 60;
+    }
+
+    @keyframes floatUp{
+      0%{ transform: translate(-50%, 0) scale(1); opacity: 0; }
+      10%{ opacity: 1; }
+      100%{ transform: translate(calc(-50% + var(--x)), -240px) rotate(var(--r)) scale(1.35); opacity: 0; }
+    }
+
+    /* Mobile responsiveness (no visual changes on desktop) */
+    @media (max-width: 420px){
+      body{ padding: 16px; overflow-y:auto; }
+      .card{ width: min(560px, 100%); padding: 24px 16px; }
+      .btn-row{ gap: 10px; min-height: 72px; }
+      button{ padding: 13px 16px; font-size: 15px; }
+    }
+    /* Short screens (mobile address bar / landscape) */
+    @media (max-height: 700px){
+      body{ overflow-y:auto; }
+    }
+
+    .made-for{
+      position: fixed;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      opacity: 0.65;
+      color: var(--text);
+      font-weight: 600;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+
+  <main class="card">
+    <h1>Hey Aria… 💖</h1>
+    <div class="question">Will you be Mommy’s Valentine? 🥹✨</div>
+
+    <div class="btn-row" id="row">
+      <button class="yes" id="yesBtn">Always! 💕</button>
+      <button class="no" id="noBtn">Nooo 😜</button>
+    </div>
+  </main>
+
+  <section class="overlay" id="overlay">
+    <div class="modal">
+      <h1>You’re my forever little princess 💕✨</h1>
+      <p>That’s it. It’s official.<br>
+      You will always be Mommy’s sunshine,<br>
+      my brave little lion, and my biggest blessing.<br>
+      I love you bigger than the whole sky and all the stars combined. 💖🌙</p>
+      <button onclick="closeModal()">Close</button>
+    </div>
+  </section>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const overlay = document.getElementById('overlay');
+    const row = document.getElementById('row');
+
+    function dodge() {
+      const rowRect = row.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxX = rowRect.width - btnRect.width;
+      const maxY = rowRect.height - btnRect.height;
+
+      const x = Math.max(0, Math.floor(Math.random() * (maxX + 1)));
+      const y = Math.max(0, Math.floor(Math.random() * (maxY + 1)));
+
+      noBtn.style.position = 'absolute';
+      noBtn.style.left = x + 'px';
+      noBtn.style.top = y + 'px';
+    }
+
+    noBtn.addEventListener('mouseenter', dodge);
+    noBtn.addEventListener('click', dodge);
+
+    function spawnHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.textContent = '💖';
+
+      const x = (Math.random() * 220 - 110).toFixed(0) + 'px';
+      const r = (Math.random() * 60 - 30).toFixed(0) + 'deg';
+
+      heart.style.setProperty('--x', x);
+      heart.style.setProperty('--r', r);
+
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 2400);
+    }
+
+    yesBtn.addEventListener('click', () => {
+      overlay.classList.add('show');
+      for (let i = 0; i < 18; i++) {
+        setTimeout(spawnHeart, i * 80);
+      }
+    });
+
+    function closeModal() {
+      overlay.classList.remove('show');
+    }
+  </script>
+
+  <footer class="made-for">
+    Made for Aria Riley Duvenage 💖
+  </footer>
+
+</body>
+</html>
